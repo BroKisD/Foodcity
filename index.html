@@ -1,4 +1,27 @@
-/* Lớp mờ phủ lên background để chữ dễ đọc - giảm độ mờ */
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tiệc Sinh Nhật 17 – Phan Nhật Nam</title>
+  <style>
+    /* Reset và thiết lập cơ bản */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Comic Sans MS", "Segoe UI", sans-serif;
+      /* Ảnh nền lấy từ file background.jpg, lấp đầy màn hình */
+      background: url('background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    /* Lớp mờ phủ lên background để chữ dễ đọc - giảm độ mờ */
     .overlay-bg {
       position: fixed;
       inset: 0;
@@ -6,3 +29,386 @@
       backdrop-filter: blur(2px);
       z-index: 0;
     }
+
+    /* Thẻ nội dung thiệp - hiện đại hơn */
+    .card {
+      position: relative;
+      z-index: 1;
+      max-width: 650px;
+      margin: 60px auto;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 24px;
+      border: none;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(10px);
+      animation: slideDown 1s ease-out;
+    }
+
+    /* Tựa đề và thông tin */
+    .title {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 800;
+      color: #ff4081;
+      text-shadow: 0 0 5px #fff;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 20px;
+      color: #ff9800;
+      margin-bottom: 18px;
+      font-weight: 700;
+      animation: wobble 3s infinite;
+    }
+
+    .name {
+      text-align: center;
+      font-size: 34px;
+      font-weight: 900;
+      color: #673ab7;
+      margin-bottom: 16px;
+    }
+
+    .info {
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .info p {
+      margin: 6px 0;
+    }
+
+    .info strong {
+      color: #e91e63;
+    }
+
+    .big-age {
+      display: inline-block;
+      padding: 4px 10px;
+      background: #ffeb3b;
+      border-radius: 999px;
+      font-weight: 800;
+      margin-left: 4px;
+    }
+
+    .highlight {
+      background: #ffe0f2;
+      padding: 6px 10px;
+      border-radius: 12px;
+      margin: 8px 0;
+    }
+
+    .footer-text {
+      text-align: center;
+      margin-top: 20px;
+      font-style: italic;
+      color: #555;
+    }
+
+    .btn-confirm {
+      display: block;
+      margin: 24px auto 0;
+      padding: 12px 24px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ff6fb1, #ff9800);
+      color: white;
+      font-weight: 700;
+      font-size: 18px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn-confirm:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+    }
+
+    .btn-confirm:active {
+      transform: translateY(1px) scale(0.98);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .note {
+      text-align: center;
+      margin-top: 8px;
+      font-size: 13px;
+      color: #777;
+    }
+
+    /* Bong bóng trang trí */
+    .balloon {
+      position: fixed;
+      bottom: -120px;
+      width: 50px;
+      height: 70px;
+      border-radius: 50%;
+      background: #ff6fb1;
+      animation: floatUp 9s linear infinite;
+      opacity: 0.85;
+      z-index: 0;
+    }
+    .balloon::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -40px;
+      width: 2px;
+      height: 40px;
+      background: #888;
+      transform: translateX(-50%);
+    }
+    /* Tùy chỉnh các bong bóng để đa dạng */
+    .balloon:nth-child(1) { left: 5%;  background: #ff6fb1; animation-duration: 11s; }
+    .balloon:nth-child(2) { left: 20%; background: #ffd54f; animation-duration: 9s; }
+    .balloon:nth-child(3) { left: 40%; background: #81c784; animation-duration: 12s; }
+    .balloon:nth-child(4) { left: 65%; background: #64b5f6; animation-duration: 10s; }
+    .balloon:nth-child(5) { left: 85%; background: #ba68c8; animation-duration: 13s; }
+
+    @keyframes floatUp {
+      0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+      10%  { opacity: 1; }
+      50%  { transform: translateY(-50vh) rotate(5deg); }
+      100% { transform: translateY(-100vh) rotate(-5deg); opacity: 0; }
+    }
+
+    /* Hiệu ứng slide xuống cho thẻ */
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-40px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hiệu ứng rung nhẹ cho tiêu đề phụ */
+    @keyframes wobble {
+      0%, 100% { transform: rotate(0deg); }
+      20% { transform: rotate(2deg); }
+      40% { transform: rotate(-2deg); }
+      60% { transform: rotate(2deg); }
+      80% { transform: rotate(-2deg); }
+    }
+
+    /* Canvas pháo hoa phủ khắp màn hình */
+    #fireworks {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Popup khi bấm điểm danh */
+    #popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      z-index: 10;
+    }
+    #popup.active {
+      visibility: visible;
+      opacity: 1;
+    }
+    #popup .popup-content {
+      position: relative;
+      background: rgba(255, 255, 255, 0.98);
+      border-radius: 20px;
+      padding: 30px 25px;
+      max-width: 450px;
+      width: 90%;
+      text-align: center;
+      animation: popIn 0.6s ease forwards;
+    }
+    @keyframes popIn {
+      from { transform: scale(0.5) rotate(-5deg); opacity: 0; }
+      to   { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+    #popup img {
+      max-width: 100%;
+      max-height: 300px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    }
+    #popup h3 {
+      font-size: 24px;
+      color: #e91e63;
+      margin: 0;
+      font-weight: 700;
+    }
+    .close-btn {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      background: none;
+      border: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: #f50057;
+    }
+
+    /* Responsive */
+    @media (max-width: 650px) {
+      .card {
+        margin: 20px;
+        padding: 24px;
+      }
+      .name { font-size: 28px; }
+      .title { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Canvas pháo hoa -->
+  <canvas id="fireworks"></canvas>
+  <!-- Lớp mờ -->
+  <div class="overlay-bg"></div>
+
+  <!-- Bong bóng trang trí -->
+  <div class="balloon"></div>
+  <div class="balloon"></div>
+  <div class="balloon"></div>
+  <div class="balloon"></div>
+  <div class="balloon"></div>
+
+  <!-- Thiệp mời -->
+  <div class="card">
+    <div class="title">THIỆP MỜI TIỆC SINH NHẬT 🎉</div>
+    <div class="subtitle">Anh em mình cứ thế thôi hẹ hẹ</div>
+    <div class="name">Phan Nhật Nam</div>
+    <div class="info">
+      <p>📅 <strong>Sinh nhật:</strong> 28/11/2008 → 28/11/2025 <span class="big-age">17 tuổi rồi!</span></p>
+      <p>🕕 <strong>Thời gian:</strong> 18h00, ngày 28/11/2025</p>
+      <p>📍 <strong>Địa điểm:</strong> Quán Miu Miu</p>
+      <p class="highlight">💌 <strong>Lời nhắn:</strong> Đại đại đi bro! Ăn thả ga, cười thoải mái, tụ tập náo nhiệt. Hôm nay Nam cho phép ăn mừng thả cửa! 🤭</p>
+    </div>
+    <p class="footer-text">Nhớ mang theo sự zui zẻ và diện đẹp nghe mấy đứa 😆🎁</p>
+    <button class="btn-confirm" onclick="showPopup()">Điểm danh liền! 🎉</button>
+    <div class="note">(Điểm danh ở trên)</div>
+  </div>
+
+  <!-- Popup hình ảnh và thông điệp -->
+  <div id="popup" onclick="closePopup()">
+    <div class="popup-content" onclick="event.stopPropagation()">
+      <button class="close-btn" onclick="closePopup()">×</button>
+      <img src="clickin.jpg" alt="popup image">
+      <h3>Vị vua đang chờ bạn!</h3>
+    </div>
+  </div>
+
+  <script>
+    // Hiệu ứng pháo hoa đơn giản với canvas
+    const canvas = document.getElementById('fireworks');
+    const ctx = canvas.getContext('2d');
+    let W = window.innerWidth;
+    let H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+
+    window.addEventListener('resize', () => {
+      W = window.innerWidth;
+      H = window.innerHeight;
+      canvas.width = W;
+      canvas.height = H;
+    });
+
+    const particles = [];
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+    function createFirework() {
+      const x = random(W * 0.1, W * 0.9);
+      const y = random(H * 0.1, H * 0.5);
+      const count = 60;
+      for (let i = 0; i < count; i++) {
+        const angle = (Math.PI * 2 * i) / count;
+        const speed = random(1.5, 4);
+        particles.push({
+          x: x,
+          y: y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          alpha: 1,
+          radius: random(1, 3),
+          life: random(40, 70)
+        });
+      }
+    }
+    function updateParticles() {
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.02; // trọng lực nhẹ
+        p.alpha -= 0.015;
+        p.life--;
+        if (p.alpha <= 0 || p.life <= 0) {
+          particles.splice(i, 1);
+        }
+      }
+    }
+    function drawParticles() {
+      ctx.clearRect(0, 0, W, H);
+      for (const p of particles) {
+        ctx.save();
+        ctx.globalAlpha = p.alpha;
+        const grad = ctx.createRadialGradient(
+          p.x,
+          p.y,
+          0,
+          p.x,
+          p.y,
+          p.radius * 3
+        );
+        grad.addColorStop(0, 'white');
+        grad.addColorStop(0.3, 'yellow');
+        grad.addColorStop(0.6, 'magenta');
+        grad.addColorStop(1, 'rgba(255,0,0,0)');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius * 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+    let lastTime = 0;
+    function loop(timestamp) {
+      if (timestamp - lastTime > 600) {
+        createFirework();
+        lastTime = timestamp;
+      }
+      updateParticles();
+      drawParticles();
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+
+    // Hiển thị và ẩn popup
+    function showPopup() {
+      const popup = document.getElementById('popup');
+      popup.classList.add('active');
+    }
+    function closePopup() {
+      const popup = document.getElementById('popup');
+      popup.classList.remove('active');
+    }
+    // Expose functions to global scope
+    window.showPopup = showPopup;
+    window.closePopup = closePopup;
+  </script>
+</body>
+</html>
