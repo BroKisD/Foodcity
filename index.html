@@ -1,1074 +1,342 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Công ty TNHH Thành Phố Thực Phẩm</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', 'Segoe UI', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f8f9fa;
-            overflow-x: hidden;
-        }
-
-        /* Header */
-        header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 0;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 2px solid #2c5530;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 2rem;
-            font-weight: 800;
-            color: #2c5530;
-            background: linear-gradient(135deg, #2c5530, #4a7c59);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2.5rem;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-        }
-
-        nav a:hover {
-            color: #2c5530;
-            background: rgba(44, 85, 48, 0.1);
-            transform: translateY(-2px);
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: #2c5530;
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        nav a:hover::after {
-            width: 80%;
-        }
-
-        /* Hero Section with Background Image */
-        .hero {
-            background: linear-gradient(135deg, rgba(44, 85, 48, 0.9) 0%, rgba(74, 124, 89, 0.8) 100%), 
-                        url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: white;
-            padding: 8rem 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-
-        .hero .container {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .hero p {
-            font-size: 1.4rem;
-            opacity: 0.95;
-            max-width: 700px;
-            margin: 0 auto 2rem;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-            animation: fadeInUp 1s ease-out 0.3s both;
-        }
-
-        .cta-button {
-            background: linear-gradient(135deg, #ff6b35, #f7931e);
-            color: white;
-            padding: 1rem 2.5rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
-            animation: fadeInUp 1s ease-out 0.6s both;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(255, 107, 53, 0.4);
-        }
-
-        /* Floating Elements */
-        .floating-element {
-            position: absolute;
-            opacity: 0.1;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .floating-element:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
-        .floating-element:nth-child(2) { top: 60%; right: 15%; animation-delay: 2s; }
-        .floating-element:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 4s; }
-
-        /* Welcome Section with Enhanced Layout */
-        .welcome {
-            background: white;
-            padding: 8rem 0;
-            position: relative;
-        }
-
-        .welcome::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 100px;
-            background: linear-gradient(135deg, #f8f9fa 0%, white 100%);
-        }
-
-        .welcome-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5rem;
-            align-items: center;
-        }
-
-        .welcome-text h2 {
-            font-size: 3rem;
-            color: #2c5530;
-            margin-bottom: 2rem;
-            font-weight: 800;
-            position: relative;
-        }
-
-        .welcome-text h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(135deg, #ff6b35, #f7931e);
-            border-radius: 2px;
-        }
-
-        .welcome-text p {
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
-            color: #555;
-        }
-
-        .welcome-image {
-            position: relative;
-        }
-
-        .welcome-image img {
-            width: 100%;
-            max-width: 500px;
-            border-radius: 30px;
-            box-shadow: 0 20px 50px rgba(44, 85, 48, 0.3);
-            transition: transform 0.3s ease;
-        }
-
-        .welcome-image:hover img {
-            transform: scale(1.05);
-        }
-
-        .welcome-image::before {
-            content: '';
-            position: absolute;
-            top: -20px;
-            left: -20px;
-            right: 20px;
-            bottom: 20px;
-            background: linear-gradient(135deg, #2c5530, #4a7c59);
-            border-radius: 35px;
-            z-index: -1;
-            opacity: 0.1;
-        }
-
-        /* Statistics Section */
-        .stats {
-            background: linear-gradient(135deg, #2c5530, #4a7c59);
-            color: white;
-            padding: 5rem 0;
-            text-align: center;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 3rem;
-            margin-top: 3rem;
-        }
-
-        .stat-item {
-            padding: 2rem;
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-            color: #ff6b35;
-        }
-
-        .stat-label {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        /* Chairman Message with Enhanced Design */
-        .chairman-message {
-            background: #f8f9fa;
-            padding: 8rem 0;
-            position: relative;
-        }
-
-        .chairman-content {
-            display: grid;
-            grid-template-columns: 350px 1fr;
-            gap: 5rem;
-            align-items: start;
-        }
-
-        .chairman-photo {
-            text-align: center;
-            position: relative;
-        }
-
-        .chairman-photo::before {
-            content: '';
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 300px;
-            height: 300px;
-            background: linear-gradient(135deg, #2c5530, #4a7c59);
-            border-radius: 50%;
-            z-index: 1;
-            opacity: 0.1;
-        }
-
-        .chairman-photo img {
-            width: 280px;
-            height: 280px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 6px solid #2c5530;
-            margin-bottom: 1.5rem;
-            position: relative;
-            z-index: 2;
-            box-shadow: 0 15px 40px rgba(44, 85, 48, 0.3);
-        }
-
-        .chairman-title {
-            background: linear-gradient(135deg, #2c5530, #4a7c59);
-            color: white;
-            padding: 0.8rem 2rem;
-            border-radius: 30px;
-            font-weight: 600;
-            display: inline-block;
-            box-shadow: 0 8px 25px rgba(44, 85, 48, 0.3);
-        }
-
-        .chairman-text h3 {
-            font-size: 2.5rem;
-            color: #2c5530;
-            margin-bottom: 2rem;
-            font-weight: 800;
-        }
-
-        .chairman-text p {
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
-            color: #555;
-        }
-
-        .signature {
-            font-style: italic;
-            color: #2c5530;
-            font-weight: 600;
-            margin-top: 2rem;
-            padding: 1rem;
-            background: rgba(44, 85, 48, 0.05);
-            border-left: 4px solid #2c5530;
-            border-radius: 0 10px 10px 0;
-        }
-
-        /* Enhanced Products Section */
-        .products {
-            background: white;
-            padding: 8rem 0;
-            position: relative;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 3rem;
-            color: #2c5530;
-            margin-bottom: 1rem;
-            font-weight: 800;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            font-size: 1.3rem;
-            color: #666;
-            max-width: 800px;
-            margin: 0 auto 4rem;
-            line-height: 1.6;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 3rem;
-            margin-top: 4rem;
-        }
-
-        .product-item {
-            background: white;
-            border-radius: 25px;
-            overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-            transition: all 0.4s ease;
-            position: relative;
-        }
-
-        .product-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 60px rgba(0,0,0,0.2);
-        }
-
-        .product-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(44, 85, 48, 0.1), rgba(74, 124, 89, 0.05));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 1;
-        }
-
-        .product-item:hover::before {
-            opacity: 1;
-        }
-
-        .product-item img {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-        }
-
-        .product-item:hover img {
-            transform: scale(1.1);
-        }
-
-        .product-content {
-            padding: 2.5rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .product-content h3 {
-            font-size: 1.6rem;
-            color: #2c5530;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .product-content p {
-            color: #666;
-            line-height: 1.7;
-        }
-
-        .product-badge {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, #ff6b35, #f7931e);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            z-index: 3;
-        }
-
-        /* Food Gallery Section */
-        .food-gallery {
-            background: #f8f9fa;
-            padding: 8rem 0;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .gallery-item {
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-            cursor: pointer;
-        }
-
-        .gallery-item:hover {
-            transform: scale(1.05);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-        }
-
-        /* Quality Promise with Background */
-        .quality {
-            background: linear-gradient(135deg, rgba(44, 85, 48, 0.95), rgba(74, 124, 89, 0.9)), 
-                        url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: white;
-            padding: 8rem 0;
-            text-align: center;
-            position: relative;
-        }
-
-        .quality::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.3);
-        }
-
-        .quality .container {
-            position: relative;
-            z-index: 2;
-        }
-
-        .quality h2 {
-            font-size: 3rem;
-            margin-bottom: 2rem;
-            font-weight: 800;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .quality p {
-            font-size: 1.3rem;
-            max-width: 900px;
-            margin: 0 auto;
-            opacity: 0.95;
-            line-height: 1.8;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-        }
-
-        /* Enhanced Contact Section */
-        .contact {
-            background: white;
-            padding: 8rem 0;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-            margin-top: 4rem;
-        }
-
-        .contact-item {
-            background: #f8f9fa;
-            padding: 3rem 2rem;
-            border-radius: 20px;
-            text-align: center;
-            border-left: 5px solid #2c5530;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contact-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(44, 85, 48, 0.05), rgba(74, 124, 89, 0.02));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .contact-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(44, 85, 48, 0.15);
-        }
-
-        .contact-item:hover::before {
-            opacity: 1;
-        }
-
-        .contact-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            filter: grayscale(100%) sepia(100%) hue-rotate(90deg) saturate(200%);
-        }
-
-        .contact-item h3 {
-            color: #2c5530;
-            margin-bottom: 1rem;
-            font-weight: 700;
-            font-size: 1.3rem;
-        }
-
-        .contact-item p {
-            color: #666;
-            position: relative;
-            z-index: 2;
-        }
-
-        .contact-item a {
-            color: #2c5530;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .contact-item a:hover {
-            color: #ff6b35;
-            text-decoration: underline;
-        }
-
-        /* Enhanced Footer */
-        footer {
-            background: linear-gradient(135deg, #2c5530, #1a3d1f);
-            color: white;
-            padding: 4rem 0 2rem;
-            position: relative;
-        }
-
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #ff6b35, transparent);
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 1.5rem;
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: #ff6b35;
-        }
-
-        .footer-section p,
-        .footer-section a {
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            line-height: 1.8;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section a:hover {
-            color: #ff6b35;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255,255,255,0.2);
-            padding-top: 2rem;
-            color: rgba(255,255,255,0.7);
-            text-align: center;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        /* Scroll animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-            }
-
-            .welcome-content,
-            .chairman-content {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-
-            .chairman-content {
-                text-align: center;
-            }
-
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .gallery-grid {
-                grid-template-columns: 1fr;
-            }
-
-            nav ul {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .section-title {
-                font-size: 2.2rem;
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 2rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>Thiệp mời sinh nhật Phan Nhật Nam</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Comic Sans MS", "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #fffbcc, #ffb3e6, #80d4ff);
+      overflow: hidden;
+      height: 100vh;
+      color: #333;
+    }
+
+    /* Canvas pháo hoa full màn hình */
+    #fireworks {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+    }
+
+    /* Lớp mờ để dễ đọc chữ */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(255,255,255,0.5), rgba(255,255,255,0.05));
+      z-index: 1;
+    }
+
+    /* Thiệp mời */
+    .card {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 24px 28px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      border: 3px dashed #ff6fb1;
+      backdrop-filter: blur(6px);
+    }
+
+    .title {
+      text-align: center;
+      font-size: 26px;
+      font-weight: 800;
+      color: #ff4081;
+      text-shadow: 0 0 5px #fff;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 18px;
+      color: #ff9800;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    .name {
+      text-align: center;
+      font-size: 30px;
+      font-weight: 900;
+      color: #673ab7;
+      margin-bottom: 12px;
+    }
+
+    .info {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .info strong {
+      color: #e91e63;
+    }
+
+    .line {
+      margin: 6px 0;
+    }
+
+    .big-age {
+      display: inline-block;
+      padding: 4px 10px;
+      background: #ffeb3b;
+      border-radius: 999px;
+      font-weight: 800;
+      margin-left: 4px;
+    }
+
+    .highlight {
+      background: #ffe0f2;
+      padding: 4px 8px;
+      border-radius: 10px;
+    }
+
+    .footer-text {
+      text-align: center;
+      margin-top: 18px;
+      font-style: italic;
+      color: #555;
+    }
+
+    .emoji {
+      font-size: 22px;
+    }
+
+    .btn-confirm {
+      display: block;
+      margin: 18px auto 0;
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ff6fb1, #ff9800);
+      color: white;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn-confirm:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+    }
+
+    .btn-confirm:active {
+      transform: translateY(1px) scale(0.98);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .note {
+      text-align: center;
+      margin-top: 8px;
+      font-size: 13px;
+      color: #777;
+    }
+
+    /* Bong bóng trang trí */
+    .balloon {
+      position: fixed;
+      bottom: -120px;
+      width: 50px;
+      height: 70px;
+      border-radius: 50%;
+      background: #ff6fb1;
+      animation: floatUp 10s linear infinite;
+      opacity: 0.8;
+      z-index: 1;
+    }
+
+    .balloon::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -40px;
+      width: 2px;
+      height: 40px;
+      background: #888;
+      transform: translateX(-50%);
+    }
+
+    .balloon:nth-child(1) { left: 5%; background: #ff6fb1; animation-duration: 11s; }
+    .balloon:nth-child(2) { left: 20%; background: #ffd54f; animation-duration: 9s; }
+    .balloon:nth-child(3) { left: 40%; background: #81c784; animation-duration: 12s; }
+    .balloon:nth-child(4) { left: 65%; background: #64b5f6; animation-duration: 10s; }
+    .balloon:nth-child(5) { left: 85%; background: #ba68c8; animation-duration: 13s; }
+
+    @keyframes floatUp {
+      0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+      10%  { opacity: 1; }
+      50%  { transform: translateY(-50vh) rotate(5deg); }
+      100% { transform: translateY(-100vh) rotate(-5deg); opacity: 0; }
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        margin: 20px;
+        padding: 20px;
+      }
+      .name { font-size: 26px; }
+      .title { font-size: 22px; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">🍎 Thành Phố Thực Phẩm</div>
-                <nav>
-                    <ul>
-                        <li><a href="#home">Trang chủ</a></li>
-                        <li><a href="#about">Giới thiệu</a></li>
-                        <li><a href="#products">Sản phẩm</a></li>
-                        <li><a href="#gallery">Thư viện</a></li>
-                        <li><a href="#contact">Liên hệ</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
 
-    <section id="home" class="hero">
-        <div class="floating-element">🥕</div>
-        <div class="floating-element">🍅</div>
-        <div class="floating-element">🌿</div>
-        <div class="container">
-            <h1>Trải nghiệm Thực Phẩm Cao Cấp Cùng Thành Phố Thực Phẩm</h1>
-            <p>Chúng tôi mang đến những sản phẩm ngon, an toàn và giá hợp lý từ khắp nơi trên thế giới với tiêu chuẩn chất lượng quốc tế.</p>
-            <a href="#products" class="cta-button">Khám phá sản phẩm</a>
-        </div>
-    </section>
+  <!-- Canvas pháo hoa -->
+  <canvas id="fireworks"></canvas>
+  <div class="overlay"></div>
 
-    <section class="stats fade-in">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-number">6+</div>
-                    <div class="stat-label">Năm kinh nghiệm</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">1000+</div>
-                    <div class="stat-label">Khách hàng tin tưởng</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">50+</div>
-                    <div class="stat-label">Sản phẩm chất lượng</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">24/7</div>
-                    <div class="stat-label">Hỗ trợ khách hàng</div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- Bong bóng -->
+  <div class="balloon"></div>
+  <div class="balloon"></div>
+  <div class="balloon"></div>
+  <div class="balloon"></div>
+  <div class="balloon"></div>
 
-    <section id="about" class="welcome fade-in">
-        <div class="container">
-            <div class="welcome-content">
-                <div class="welcome-text">
-                    <h2>Câu Chuyện Thành Lập</h2>
-                    <p>Thành Phố Thực Phẩm ra đời từ tháng 8 năm 2018 với một ước mơ giản dị: mang đến bữa ăn ngon, an toàn và đầy đủ dinh dưỡng cho mọi gia đình Việt.</p>
-                    <p>Chúng tôi hiểu rằng việc tìm kiếm thực phẩm nhập khẩu chất lượng cao, giá hợp lý không hề dễ dàng. Chính điều đó đã thúc đẩy chúng tôi xây dựng một "thành phố" thu nhỏ, nơi tinh hoa ẩm thực toàn cầu hội tụ.</p>
-                    <p>Mỗi sản phẩm là một cam kết về chất lượng, được tuyển chọn kỹ lưỡng, bảo quản nghiêm ngặt và phân phối tối ưu, để người tiêu dùng có thể yên tâm thưởng thức từng bữa ăn trọn vẹn.</p>
-                    <p>Hơn cả kinh doanh, chúng tôi tin rằng: thực phẩm là sợi dây kết nối yêu thương – nền tảng của sức khỏe và hạnh phúc.</p>
-                </div>
-                <div class="welcome-image">
-                    <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=800&q=80" alt="Nhà máy sản xuất thực phẩm hiện đại">
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- Thiệp mời -->
+  <div class="card">
+    <div class="title">THIỆP MỜI DỰ SINH NHẬT 🎂</div>
+    <div class="subtitle">Bữa tiệc “bùng nổ” tuổi 17!</div>
 
-    <section class="chairman-message fade-in">
-        <div class="container">
-            <div class="chairman-content">
-                <div class="chairman-photo">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80" alt="Giám đốc">
-                    <div class="chairman-title">Giám Đốc Điều Hành</div>
-                </div>
-                <div class="chairman-text">
-                    <h3>Thông điệp từ Ban Giám Đốc</h3>
-                    <p>Với hơn 7 năm kinh nghiệm trong ngành thực phẩm, chúng tôi hiểu rằng chất lượng là yếu tố sống còn. Mỗi sản phẩm tại Thành Phố Thực Phẩm đều tuân thủ nghiêm ngặt các tiêu chuẩn quốc tế về an toàn thực phẩm.</p>
-                    <p>Chúng tôi không chỉ bán thực phẩm – chúng tôi mang đến sự an tâm. Niềm tin của khách hàng là động lực để chúng tôi phát triển bền vững và không ngừng cải tiến, đổi mới để phục vụ tốt nhất.</p>
-                    <p>Sứ mệnh của chúng tôi là đưa những sản phẩm thực phẩm chất lượng cao nhất từ khắp nơi trên thế giới đến với mọi gia đình Việt Nam, góp phần nâng cao chất lượng cuộc sống và sức khỏe cộng đồng.</p>
-                    <div class="signature">— Ban Giám Đốc Công ty TNHH Thành Phố Thực Phẩm</div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="name">Phan Nhật Nam</div>
 
-    <section id="products" class="products fade-in">
-        <div class="container">
-            <h2 class="section-title">Sản Phẩm Chọn Lọc</h2>
-            <p class="section-subtitle">
-                Với những thực phẩm từ Thành Phố Thực Phẩm, hãy làm mới căn bếp của bạn bằng những thực đơn đa dạng và tốt cho sức khỏe
-            </p>
-            <div class="products-grid">
-                <div class="product-item">
-                    <div class="product-badge">Bán chạy</div>
-                    <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=500&q=80" alt="Thực phẩm chế biến">
-                    <div class="product-content">
-                        <h3>Thực phẩm chế biến</h3>
-                        <p>Các sản phẩm thực phẩm chế biến sẵn, tiện lợi và đảm bảo chất lượng dinh dưỡng cho gia đình hiện đại. Được sản xuất theo công nghệ hiện đại và tiêu chuẩn vệ sinh an toàn thực phẩm quốc tế.</p>
-                    </div>
-                </div>
-                <div class="product-item">
-                    <div class="product-badge">Mới</div>
-                    <img src="https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?auto=format&fit=crop&w=500&q=80" alt="Gia vị đóng gói">
-                    <div class="product-content">
-                        <h3>Gia vị đóng gói</h3>
-                        <p>Bộ sưu tập gia vị phong phú, tiện lợi và đa dạng chủng loại cho mọi món ăn gia đình. Từ các loại gia vị truyền thống đến những hương vị độc đáo, mang đến trải nghiệm ẩm thực tuyệt vời.</p>
-                    </div>
-                </div>
-                <div class="product-item">
-                    <div class="product-badge">Chất lượng cao</div>
-                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=500&q=80" alt="Thực phẩm đông lạnh">
-                    <div class="product-content">
-                        <h3>Thực phẩm đông lạnh</h3>
-                        <p>Công nghệ bảo quản hiện đại theo tiêu chuẩn quốc tế, giữ trọn vị tươi ngon tự nhiên. Chuỗi lạnh được duy trì nghiêm ngặt từ khâu sản xuất đến tay người tiêu dùng.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="info">
+      <p class="line">
+        📅 <strong>Ngày sinh:</strong> 28/11/2008 &nbsp;→&nbsp; 28/11/2025  
+        (<span class="big-age">17 tuổi rồi đó nha!</span>)
+      </p>
+      <p class="line">
+        🕕 <strong>Thời gian tiệc:</strong> 18h00, ngày 28/11/2025
+      </p>
+      <p class="line">
+        📍 <strong>Địa điểm:</strong> quán Miu Miu
+      </p>
+      <p class="line highlight">
+        💌 <strong>Lời nhắn nhủ:</strong> 
+        Hân hạnh mời bạn tới chung vui, ăn uống no nê, cười banh nóc
+        và xem pháo hoa “cây nhà lá vườn” của Nam! 🤭
+      </p>
+    </div>
 
-    <section id="gallery" class="food-gallery fade-in">
-        <div class="container">
-            <h2 class="section-title">Thư Viện Hình Ảnh</h2>
-            <p class="section-subtitle">Khám phá thế giới thực phẩm đa dạng và phong phú của chúng tôi</p>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=400&q=80" alt="Món ăn ngon">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1546554137-f86b9593a222?auto=format&fit=crop&w=400&q=80" alt="Thực phẩm tươi sống">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1498579397066-22750a3cb424?auto=format&fit=crop&w=400&q=80" alt="Rau củ tươi">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?auto=format&fit=crop&w=400&q=80" alt="Hải sản tươi ngon">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?auto=format&fit=crop&w=400&q=80" alt="Món ăn chế biến">
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=400&q=80" alt="Thực phẩm organic">
-                </div>
-            </div>
-        </div>
-    </section>
+    <p class="footer-text">
+      Đi nhớ mang theo nụ cười tươi, còn quà thì... mang càng nhiều càng tốt nhé! 😆🎁
+    </p>
 
-    <section class="quality fade-in">
-        <div class="container">
-            <h2>Cam Kết Chất Lượng</h2>
-            <p>Thành Phố Thực Phẩm là nơi tin cậy để quý khách khám phá, trải nghiệm sự đa dạng của văn hóa ẩm thực Việt Nam và thế giới. Chúng tôi cam kết mang đến những sản phẩm chất lượng cao nhất với giá cả hợp lý, phục vụ tận tâm và chuyên nghiệp. Mỗi sản phẩm đều được kiểm tra nghiêm ngặt và đảm bảo an toàn tuyệt đối cho sức khỏe người tiêu dùng.</p>
-        </div>
-    </section>
+    <button class="btn-confirm" onclick="alert('Đã ghi nhận: Bạn sẽ tới đốt pháo hoa cùng Nam! 🎆')">
+      Mình sẽ tới tham dự! 🎉
+    </button>
+    <div class="note">
+      (Nhấn cho vui thôi, khỏi lo bị điểm danh thiệt 😉)
+    </div>
+  </div>
 
-    <section id="contact" class="contact fade-in">
-        <div class="container">
-            <h2 class="section-title">Liên Hệ Với Chúng Tôi</h2>
-            <p class="section-subtitle">Chúng tôi luôn sẵn sàng hỗ trợ và tư vấn cho quý khách hàng</p>
-            <div class="contact-grid">
-                <div class="contact-item">
-                    <div class="contact-icon">📧</div>
-                    <h3>Email</h3>
-                    <p><a href="mailto:info@thanhphothucpham.com">info@thanhphothucpham.com</a></p>
-                    <p><a href="mailto:support@thanhphothucpham.com">support@thanhphothucpham.com</a></p>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">📞</div>
-                    <h3>Điện thoại</h3>
-                    <p>Hotline: +84 123 456 789</p>
-                    <p>Zalo: +84 987 654 321</p>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">📍</div>
-                    <h3>Địa chỉ</h3>
-                    <p>123 Đường Thành Phố Thực Phẩm<br>Phường Bến Nghé, Quận 1<br>TP. Hồ Chí Minh, Việt Nam</p>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">🕐</div>
-                    <h3>Giờ làm việc</h3>
-                    <p>Thứ Hai - Thứ Sáu: 8:00 - 18:00<br>Thứ Bảy - Chủ Nhật: 8:00 - 17:00</p>
-                </div>
-            </div>
-        </div>
-    </section>
+  <script>
+    // Hiệu ứng pháo hoa đơn giản với canvas
+    const canvas = document.getElementById("fireworks");
+    const ctx = canvas.getContext("2d");
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Công ty TNHH Thành Phố Thực Phẩm</h3>
-                    <p>Chuyên cung cấp thực phẩm chất lượng cao, an toàn và dinh dưỡng cho mọi gia đình Việt Nam. Với hơn 7 năm kinh nghiệm, chúng tôi là đối tác tin cậy của hàng nghìn gia đình.</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Thông tin liên hệ</h3>
-                    <p>📧 info@thanhphothucpham.com</p>
-                    <p>📞 Hotline: +84 123 456 789</p>
-                    <p>📍 123 Đường Thành Phố Thực Phẩm, Q1, TP.HCM</p>
-                    <p>🌐 www.thanhphothucpham.com</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Danh mục sản phẩm</h3>
-                    <p><a href="#products">Thực phẩm chế biến</a></p>
-                    <p><a href="#products">Gia vị đóng gói</a></p>
-                    <p><a href="#products">Thực phẩm đông lạnh</a></p>
-                    <p><a href="#products">Thực phẩm nhập khẩu</a></p>
-                </div>
-                <div class="footer-section">
-                    <h3>Dịch vụ khách hàng</h3>
-                    <p><a href="#contact">Tư vấn sản phẩm</a></p>
-                    <p><a href="#contact">Hỗ trợ đặt hàng</a></p>
-                    <p><a href="#contact">Chính sách đổi trả</a></p>
-                    <p><a href="#contact">Câu hỏi thường gặp</a></p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Công ty TNHH Thành Phố Thực Phẩm. Bản quyền đã được bảo hộ. | Thiết kế bởi Thành Phố Thực Phẩm Team</p>
-            </div>
-        </div>
-    </footer>
+    let W = window.innerWidth;
+    let H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
 
-    <script>
-        // Enhanced scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+    window.addEventListener("resize", () => {
+      W = window.innerWidth;
+      H = window.innerHeight;
+      canvas.width = W;
+      canvas.height = H;
+    });
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
+    // Mỗi pháo hoa gồm nhiều hạt
+    const particles = [];
 
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function createFirework() {
+      const x = random(W * 0.1, W * 0.9);
+      const y = random(H * 0.1, H * 0.5);
+      const count = 60;
+
+      for (let i = 0; i < count; i++) {
+        const angle = (Math.PI * 2 * i) / count;
+        const speed = random(1.5, 4);
+        particles.push({
+          x,
+          y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          alpha: 1,
+          radius: random(1, 3),
+          life: random(40, 70)
         });
+      }
+    }
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+    function updateParticles() {
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.02; // trọng lực nhẹ
+        p.alpha -= 0.015;
+        p.life--;
 
-        // Parallax effect for hero section
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const parallax = document.querySelector('.hero');
-            const speed = scrolled * 0.5;
-            if (parallax) {
-                parallax.style.transform = `translateY(${speed}px)`;
-            }
-        });
-
-        // Dynamic counter animation for stats
-        const animateCounters = () => {
-            const counters = document.querySelectorAll('.stat-number');
-            counters.forEach(counter => {
-                const target = parseInt(counter.textContent.replace(/\D/g, ''));
-                const speed = 200;
-                const increment = target / speed;
-                let count = 0;
-                
-                const updateCounter = () => {
-                    if (count < target) {
-                        count += increment;
-                        counter.textContent = Math.ceil(count) + (counter.textContent.includes('+') ? '+' : '');
-                        setTimeout(updateCounter, 10);
-                    } else {
-                        counter.textContent = counter.textContent;
-                    }
-                };
-                
-                updateCounter();
-            });
-        };
-
-        // Trigger counter animation when stats section is visible
-        const statsObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateCounters();
-                    statsObserver.unobserve(entry.target);
-                }
-            });
-        });
-
-        const statsSection = document.querySelector('.stats');
-        if (statsSection) {
-            statsObserver.observe(statsSection);
+        if (p.alpha <= 0 || p.life <= 0) {
+          particles.splice(i, 1);
         }
+      }
+    }
 
-        // Add hover effects to gallery items
-        document.querySelectorAll('.gallery-item').forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.transform = 'scale(1.05) rotate(2deg)';
-            });
-            
-            item.addEventListener('mouseleave', function() {
-                this.style.transform = 'scale(1) rotate(0deg)';
-            });
-        });
+    function drawParticles() {
+      ctx.clearRect(0, 0, W, H);
+      for (const p of particles) {
+        ctx.save();
+        ctx.globalAlpha = p.alpha;
+        const grad = ctx.createRadialGradient(
+          p.x,
+          p.y,
+          0,
+          p.x,
+          p.y,
+          p.radius * 3
+        );
+        grad.addColorStop(0, "white");
+        grad.addColorStop(0.3, "yellow");
+        grad.addColorStop(0.6, "magenta");
+        grad.addColorStop(1, "rgba(255,0,0,0)");
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius * 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
 
-        // Dynamic header background on scroll
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.98)';
-                header.style.backdropFilter = 'blur(15px)';
-            } else {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-                header.style.backdropFilter = 'blur(10px)';
-            }
-        });
-    </script>
+    let lastTime = 0;
+    function loop(timestamp) {
+      if (timestamp - lastTime > 600) { // tạo pháo hoa ~0.6s/lần
+        createFirework();
+        lastTime = timestamp;
+      }
+
+      updateParticles();
+      drawParticles();
+      requestAnimationFrame(loop);
+    }
+
+    requestAnimationFrame(loop);
+  </script>
 </body>
 </html>
